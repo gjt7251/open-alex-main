@@ -1,7 +1,7 @@
 {
     "warehouse": "bigquery",
     "defaultSchema": "openalex_beta_staging",
-    "assertionSchema": "openalex_beta_staging",
+    "assertionSchema": "dataform_assertions",
     "defaultDatabase": "springer-nature-analytics"
 
 }

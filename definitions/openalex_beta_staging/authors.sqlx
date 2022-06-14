@@ -1,0 +1,9 @@
+config {
+  type: "table",
+  name: "authors"
+}
+
+-- select *
+-- from 
+--   ${ref("table_name")} / schema.table_name
+-- read more about ref() in the documentation tab -->
