@@ -1,6 +1,12 @@
 config {
-  type: "table"
+  
+  type: "declaration",
+  database:"springer-nature-analytics",
+  schema:"openalex_beta",
+  name:"concepts",
+  description:"getting relevent data from concepts"
 }
+
 
 -- select *
 -- from 
