@@ -1,5 +1,11 @@
 config {
-  type: "table"
+
+  type: "declaration",
+  database:"springer-nature-analytics",
+  schema:"openalex_beta",
+  name:"venues",
+  description:"getting relevent data from venues"
+  
 }
 
 -- select *

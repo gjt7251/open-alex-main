@@ -1,9 +1,10 @@
 config {
-  type: "table",
-  database: "springer-nature-analytics",
-  schema: "open_alex",
-  name: "works",
-  description: "works data set for open alex"
+  type: "declaration",
+  database:"springer-nature-analytics",
+  schema:"openalex_beta",
+  name:"works",
+  description:"getting relevent data from works"
+  
 }
 
 -- select *
