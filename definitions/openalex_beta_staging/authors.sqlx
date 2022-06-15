@@ -1,7 +1,21 @@
 config {
-  type: "table",
+  type: "incremental",
+  database:"springer-nature-analytics",
+  schema:"openalex_beta_staging",
   name: "authors"
+ 
 }
+
+SELECT substring(json_value(author,"$.id"),22) as id,
+substring(json_value(author,"$.orcid"),19) as orcid,
+json_value(author,"$.display_name") as display_name,
+json_query(author,"$.display_name_alternatives") as display_name_alternatives,
+json_value(author,"$.works_count") as works_count,
+json_value(author,"$.cited_by_count") as cited_by_count,
+json_query(author,"$.last_known_institution") as last_known_institution,
+json_value(author,"$.works_api_url") as works_api_url,
+json_value(author,"$.updated_date") as updated_date
+FROM ${ref("author")}
 
 -- select *
 -- from 

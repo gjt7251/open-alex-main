@@ -1,6 +1,10 @@
 config {
-  type: "table"
+  type: "table",
+  name:"authors_counts_by_year"
 }
+
+
+
 
 -- select *
 -- from 
