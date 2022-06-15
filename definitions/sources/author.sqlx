@@ -1,5 +1,9 @@
 config {
-  type: "table"
+  type: "declaration",
+  database:"springer-nature-analytics",
+  schema:"openalex_beta",
+  name:"author",
+  description:"getting relevent data from authors"
 }
 
 -- select *

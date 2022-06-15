@@ -1,0 +1,12 @@
+config {
+  type: "table",
+  database: "springer-nature-analytics",
+  schema: "open_alex",
+  name: "works",
+  description: "works data set for open alex"
+}
+
+-- select *
+-- from 
+--   ${ref("table_name")} / schema.table_name
+-- read more about ref() in the documentation tab -->
