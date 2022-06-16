@@ -1,6 +1,25 @@
 config {
-  type: "table"
+  type: "incremental",
+  name: "concept",
+  assertions: {
+    uniqueKey: ["id"]
+    }
 }
+
+SELECT  
+substring(json_value(concepts,"$.id"),22) as id,
+json_value(concepts,"$.wikidata") as wikidata,
+json_value(concepts,"$.display_name") as display_name,
+json_value(concepts,"$.level") as level,
+json_value(concepts,"$.description") as description,
+json_value(concepts,"$.works_count") as works_count,
+json_value(concepts,"$.cited_by_count") as cited_by_count,
+json_value(concepts,"$.image_url") as image_url,
+json_value(concepts,"$.image_thumbnail_url") as image_thumbnail_url,
+json_value(concepts,"$.works_api_url") as works_api_url,
+json_value(concepts,"$.updated_date") as updated_date
+
+FROM ${ref("concepts")}
 
 -- select *
 -- from 

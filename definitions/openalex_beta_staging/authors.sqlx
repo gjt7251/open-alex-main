@@ -1,8 +1,7 @@
 config {
   type: "incremental",
-  database:"springer-nature-analytics",
-  schema:"openalex_beta_staging",
-  name: "authors"
+  name: "authors",
+  
  
 }
 

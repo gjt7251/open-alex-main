@@ -1,0 +1,15 @@
+config {
+  type: "incremental",
+  name:" works_authorships"
+}
+
+select 
+    substring(json_value(works,'$.id'),22) as work_id,
+    json_value(authorships,'$.author_position') as author_position,
+    substring(json_value(authorships,'$.author.id'),22) as author_id,
+    substring(json_value(institutions,'$.id'),22) as institution_id
+FROM ${ref("works")}, unnest(JSON_QUERY_ARRAY(works,'$.authorships')) as authorships,unnest(JSON_QUERY_ARRAY(authorships,'$.institutions')) as institutions
+
+-- select *
+-- from ${ref("source_table")}
+-- ${when(incremental(), `where timestamp > (select max(timestamp) from ${self()})`)}

@@ -1,6 +1,13 @@
 config {
-  type: "table"
+  type: "incremental",
+  name:"works_alternate_host"
 }
+
+select 
+    substring(json_value(works,'$.id'),22) as work_id, 
+    substring(json_value(works,'$.host_venue.id'),22) as venue_id
+
+    from ${ref("works")}
 
 -- select *
 -- from 

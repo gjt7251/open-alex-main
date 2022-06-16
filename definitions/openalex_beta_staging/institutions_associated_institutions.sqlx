@@ -1,6 +1,13 @@
 config {
-  type: "table"
+  type: "incremental",
+  name: "institutions_associated_institutions"
 }
+
+select 
+substring(json_value(institutions,"$.id"),22) as institution_id,
+json_value(associated_institutions,"$.id") as associated_institutions_id,
+json_value(associated_institutions,"$.relationship") as relationship
+FROM ${ref("institutions")},unnest(json_extract_array(institutions,"$.associated_institutions")) as associated_institutions
 
 -- select *
 -- from 

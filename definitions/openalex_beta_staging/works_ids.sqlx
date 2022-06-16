@@ -1,6 +1,16 @@
 config {
-  type: "table"
+  type: "incremental",
+  name:"works_ids"
 }
+
+select 
+    substring(json_value(works,'$.id'),22) as work_id, 
+    json_value(works,'$.ids.openalex') as openalex,
+    json_value(works,'$.ids.doi') as doi,
+    json_value(works,'$.ids.mag') as mag,
+    json_value(works,'$.ids.pmid') as pmid
+   
+FROM ${ref("works")}
 
 -- select *
 -- from 

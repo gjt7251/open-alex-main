@@ -1,6 +1,17 @@
 config {
-  type: "table"
+  type: "incremental",
+  name: "institutions_ids"
 }
+
+select 
+substring(json_value(institutions,"$.id"),22)as institution_id,
+substring(json_value(institutions,"$.ids.openalex"),23)as openalex,
+json_value(institutions,"$.ids.ror") as ror,
+json_value(institutions,"$.ids.grid") as grid,
+json_value(institutions,"$.ids.wikipedia") as wikipedia,
+json_value(institutions,"$.ids.wikidata") as wikidata,
+json_value(institutions,"$.ids.mag") as mag
+FROM ${ref("institutions")}
 
 -- select *
 -- from 

@@ -1,6 +1,15 @@
 config {
-  type: "table"
+  type: "incremental",
+  name:"venues_ids"
 }
+
+select
+substring(json_value(venues,'$.id'),22) as venue_id, 
+json_value(venues,'$.openalex') as openalex,
+json_value(venues,'$.issn_l') as issn_l,
+json_value(venues,'$.mag') as mag,
+from ${ref("venues")}
+
 
 -- select *
 -- from 

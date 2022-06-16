@@ -1,6 +1,12 @@
 config {
-  type: "table"
+  type: "incremental",
+  name:"concepts_ansestors"
 }
+
+SELECT  
+substring(json_value(concepts,"$.id"),22) as concept_id,
+substring(json_value(ancestors,"$.id"),22) as ancestor_id
+FROM ${ref("concepts")},unnest(json_extract_array(concepts,"$.ancestors")) as ancestors
 
 -- select *
 -- from 

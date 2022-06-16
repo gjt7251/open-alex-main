@@ -1,6 +1,24 @@
 config {
-  type: "table"
+  type: "incremental",
+  
+  name:"institution"
 }
+
+SELECT 
+substring(json_value(institutions,"$.id"),22) as id,
+substring(json_value(institutions,"$.ror"),17) as ror,
+json_value(institutions,"$.display_name")as display_name,
+json_value(institutions,"$.country_code")as country_code,
+json_value(institutions,"$.homepage_url")as homepage_url,
+json_value(institutions,"$.image_url")as image_url,
+json_value(institutions,"$.image_thumbnail_url")as image_thumbnail_url,
+json_value(institutions,"$.display_name_acronyms")as display_name_acronyms,
+json_value(institutions,"$.display_name_alternatives")as display_name_alternatives,
+json_value(institutions,"$.works_count")as works_count,
+json_value(institutions,"$.cited_by_count")as cited_by_count,
+json_value(institutions,"$.works_api_url")as works_api_url,
+json_value(institutions,"$.updated_date")as updated_date
+FROM ${ref("institutions")}
 
 -- select *
 -- from 

@@ -1,6 +1,18 @@
 config {
-  type: "table"
+  type: "incremental",
+  name:"institutions_geo"
 }
+
+select 
+substring(json_value(institutions,"$.id"),22) as institution_id,
+json_value(institutions,"$.geo.city") as city,
+json_value(institutions,"$.geo.geonames_city_id") as geonames_city_id,
+json_value(institutions,"$.geo.region") as region,
+json_value(institutions,"$.geo.country_code") as country_code,
+json_value(institutions,"$.geo.country") as country,
+json_value(institutions,"$.geo.latitude") as latitude,
+json_value(institutions,"$.geo.longitude") as longitude,
+FROM ${ref("institutions")}
 
 -- select *
 -- from 

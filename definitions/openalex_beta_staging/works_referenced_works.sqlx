@@ -1,6 +1,13 @@
 config {
-  type: "table"
+  type: "incremental",
+  name: "works_refrenced_works"
 }
+
+select 
+    substring(json_value(works,'$.id'),22) as work_id,
+    substring(r_work_id,22) as referenced_work_id
+      
+FROM ${ref("works")}, unnest(json_value_array(works,'$.referenced_works')) as r_work_id
 
 -- select *
 -- from 

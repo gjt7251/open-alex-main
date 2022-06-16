@@ -1,6 +1,20 @@
 config {
-  type: "table"
+  type: "incremental",
+  name:"venue"
 }
+
+SELECT 
+    json_value(venues,'$.id') as id,
+    json_value(venues,'$.issn_l') as issn_l,
+    json_value(venues,'$.display_name') as display_name,
+    json_value(venues,'$.publisher') as publisher,
+    json_value(venues,'$.works_count') as works_count,
+    json_value(venues,'$.cited_by_count') as cited_by_count ,
+    json_value(venues,'$.is_oa') as is_oa,
+    json_value(venues,'$.is_doaj') as is_doaj,
+    json_value(venues,'$.homepage_url') as homepage_url,
+    json_value(venues,'$.works_api_url') as works_api_url,
+    json_value(venues,'$.updated_date') as updated_date,  FROM ${ref("venues")}
 
 -- select *
 -- from 

@@ -1,6 +1,15 @@
 config {
-  type: "table"
+  type: "incremental",
+  name:"works_open_acces"
 }
+
+select 
+    substring(json_value(works,'$.id'),22) as work_id, 
+    json_value(works,'$.open_access.is_oa') as is_oa,
+    json_value(works,'$.open_access.oa_status') as oa_status,
+    json_value(works,'$.open_access.oa_url') as oa_url
+   
+FROM ${ref("works")}
 
 -- select *
 -- from 

@@ -1,6 +1,17 @@
 config {
-  type: "table"
+  type: "incremental",
+  name:"concepts_counts_by_year"
 }
+
+SELECT  
+substring(json_value(concepts,"$.id"),22) as concept_id,
+json_value(counts_by_year,"$.year") as year,
+json_value(counts_by_year,"$.works_count") as works_count,
+json_value(counts_by_year,"$.cited_by_count") as cited_by_count
+
+FROM ${ref("concepts")},unnest(json_extract_array(concepts,"$.counts_by_year")) as counts_by_year
+
+
 
 -- select *
 -- from 

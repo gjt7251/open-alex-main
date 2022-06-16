@@ -1,6 +1,15 @@
 config {
-  type: "table"
+  type: "incremental",
+  name:"works_mesh"
 }
+
+select 
+    substring(json_value(works,'$.id'),22) as work_id,
+    json_value(mesh,'$.descriptor_ui') as descriptor_ui,
+    json_value(mesh,'$.descriptor_name') as descriptor_name,
+    json_value(mesh,'$.qualifier_ui') as qualifier_ui,
+    json_value(mesh,'$.qualifier_name') as qualifier_name
+FROM ${ref("works")}, unnest(JSON_QUERY_ARRAY(works,'$.mesh')) as mesh
 
 -- select *
 -- from 

@@ -1,6 +1,14 @@
 config {
-  type: "table"
+  type: "incremental",
+  name: "concepts_related_concepts"
 }
+
+SELECT  
+substring(json_value(concepts,"$.id"),22) as concept_id,
+substring(json_value(related_concepts,"$.id"),22) as related_concept_id,
+json_value(related_concepts,"$.score") as score
+FROM ${ref("concepts")},unnest(json_extract_array(concepts,"$.related_concepts")) as related_concepts
+
 
 -- select *
 -- from 

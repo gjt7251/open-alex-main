@@ -3,7 +3,8 @@ config {
   database:"springer-nature-analytics",
   schema:"openalex_beta",
   name:"author",
-  description:"getting relevent data from authors"
+  description:"getting relevent data from authors",
+ 
 }
 
 -- select *

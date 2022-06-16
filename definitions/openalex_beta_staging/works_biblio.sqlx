@@ -1,6 +1,16 @@
 config {
-  type: "table"
+  type: "incremental",
+  name:"works_biblio"
 }
+
+select 
+    substring(json_value(works,'$.id'),22) as work_id, 
+    json_value(works,'$.biblio.volume') as volume,
+    json_value(works,'$.biblio.issue') as issue,
+    json_value(works,'$.biblio.first_page') as first_page,
+    json_value(works,'$.biblio.last_page') as last_page
+   
+FROM ${ref("works")}
 
 -- select *
 -- from 
