@@ -1,0 +1,19 @@
+config {
+  type: "assertion",
+  name : "works_assertions"
+}
+
+SELECT
+  *
+ FROM (
+  SELECT
+    substring(json_value(works,"$.id"),22) as id,
+    COUNT(1) AS index_row_count
+  FROM ${ref("works")}
+  GROUP BY id
+  ) AS data
+WHERE index_row_count > 1 and id is not Null
+
+-- select *
+-- from ${ref("source_table")}
+-- where value is null

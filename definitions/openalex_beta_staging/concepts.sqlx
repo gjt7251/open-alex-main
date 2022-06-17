@@ -1,9 +1,6 @@
 config {
   type: "incremental",
-  name: "concept",
-  assertions: {
-    uniqueKey: ["id"]
-    }
+  name: "concept"
 }
 
 SELECT  
