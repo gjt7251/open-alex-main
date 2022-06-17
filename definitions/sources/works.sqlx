@@ -2,7 +2,7 @@ config {
   type: "declaration",
   database:"springer-nature-analytics",
   schema:"openalex_beta",
-  name:"worksk",
+  name:"works",
   description:"getting relevent data from works"
   
 }
