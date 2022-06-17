@@ -3,7 +3,7 @@ config {
   type: "declaration",
   database:"springer-nature-analytics",
   schema:"openalex_beta",
-  name:"conceptsk",
+  name:"concepts",
   description:"getting relevent data from concepts"
 }
 
