@@ -11,10 +11,6 @@
         }
       ],
       "gitRef": "master"
-    },
-    {
-      "name": "",
-      "gitRef": "master"
     }
   ]
 }
