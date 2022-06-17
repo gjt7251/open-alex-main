@@ -3,7 +3,7 @@ config {
   type: "declaration",
   database:"springer-nature-analytics",
   schema:"openalex_beta",
-  name:"venues",
+  name:"venuesk",
   description:"getting relevent data from venues"
   
 }
