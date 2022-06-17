@@ -3,13 +3,6 @@
     {
       "name": "production",
       "configOverride": {},
-      "schedules": [
-        {
-          "name": "open_alex_schedule",
-          "cron": "54 5 * * mon",
-          "disabled": true
-        }
-      ],
       "gitRef": "master"
     }
   ],
