@@ -2,7 +2,7 @@ config {
   type: "declaration",
   database:"springer-nature-analytics",
   schema:"openalex_beta",
-  name:"institutions",
+  name:"institutionsk",
   description:"getting relevent data from institutions"
 }
 
