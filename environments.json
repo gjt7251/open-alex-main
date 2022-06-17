@@ -12,6 +12,12 @@
       "slack": {
         "webhookUrl": "https://hooks.slack.com/services/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"
       }
+    },
+    {
+      "name": "new_notification_channel",
+      "slack": {
+        "webhookUrl": "https://hooks.slack.com/services/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"
+      }
     }
   ]
 }
