@@ -12,5 +12,13 @@
       ],
       "gitRef": "master"
     }
+  ],
+  "notificationChannels": [
+    {
+      "name": "ace-logging-beta",
+      "slack": {
+        "webhookUrl": "https://hooks.slack.com/services/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"
+      }
+    }
   ]
 }
