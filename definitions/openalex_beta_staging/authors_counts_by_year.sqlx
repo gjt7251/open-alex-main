@@ -7,10 +7,10 @@ config {
 }
 
 SELECT  
-substring(json_value(counts_by_year,"$.id"),22) as author_id,
-json_value(counts_by_year,"$.year") as year,
-json_value(counts_by_year,"$.works_count") as works_count,
-json_value(counts_by_year,"$.cited_by_count") as cited_by_count,
+substring(json_value(authors,"$.id"),22) as author_id,
+json_value(authors,"$.year") as year,
+json_value(authors,"$.works_count") as works_count,
+json_value(authors,"$.cited_by_count") as cited_by_count,
 from ${ref("author")},
 unnest(json_extract_array(authors,"$.counts_by_year")) as counts_by_year 
 
