@@ -7,13 +7,13 @@ config {
 
 
 SELECT 
-substring(json_value(author,"$.id"),22) as author_id,
-json_extract(author,"$.ids.openalex")as openalex,
-json_extract(author,"$.ids.orcid") as orcid,
-json_extract(author,"$.ids.scopus") as scopus,
-json_extract(author,"$.ids.twitter") as twitter,
-json_extract(author,"$.ids.wikipedia") as wikipedia,
-json_extract(author,"$.ids.mag") as mag,
+substring(json_value(authors,"$.id"),22) as author_id,
+json_extract(authors,"$.ids.openalex")as openalex,
+json_extract(authors,"$.ids.orcid") as orcid,
+json_extract(authors,"$.ids.scopus") as scopus,
+json_extract(authors,"$.ids.twitter") as twitter,
+json_extract(authors,"$.ids.wikipedia") as wikipedia,
+json_extract(authors,"$.ids.mag") as mag,
 FROM ${ref("author")} 
 
 
