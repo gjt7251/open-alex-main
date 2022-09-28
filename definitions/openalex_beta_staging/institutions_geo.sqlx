@@ -2,7 +2,8 @@ config {
   type: "incremental",
   name:"institutions_geo"
 }
-
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by institution_id order by updated_date desc  ) as RANK from (
 select 
 substring(json_value(institutions,"$.id"),22) as institution_id,
 json_value(institutions,"$.geo.city") as city,
@@ -12,7 +13,8 @@ json_value(institutions,"$.geo.country_code") as country_code,
 json_value(institutions,"$.geo.country") as country,
 json_value(institutions,"$.geo.latitude") as latitude,
 json_value(institutions,"$.geo.longitude") as longitude,
-FROM ${ref("institutions")}
+json_extract(institutions,"$.updated_date") as updated_date
+FROM ${ref("institutions")})) WHERE RANK = 1
 
 -- select *
 -- from 

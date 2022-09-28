@@ -2,12 +2,14 @@ config {
   type: "incremental",
   name: "institutions_associated_institutions"
 }
-
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by institution_id order by updated_date desc  ) as RANK from (
 select 
 substring(json_value(institutions,"$.id"),22) as institution_id,
 json_value(associated_institutions,"$.id") as associated_institutions_id,
-json_value(associated_institutions,"$.relationship") as relationship
-FROM ${ref("institutions")},unnest(json_extract_array(institutions,"$.associated_institutions")) as associated_institutions
+json_value(associated_institutions,"$.relationship") as relationship,
+json_extract(institutions,"$.updated_date") as updated_date
+FROM ${ref("institutions")},unnest(json_extract_array(institutions,"$.associated_institutions")) as associated_institutions )) WHERE RANK = 1
 
 -- select *
 -- from 

@@ -2,14 +2,17 @@ config {
   type: "incremental",
   name:"works_mesh"
 }
-
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by work_id order by updated_date desc  ) as RANK from (
 select 
     substring(json_value(works,'$.id'),22) as work_id,
     json_value(mesh,'$.descriptor_ui') as descriptor_ui,
     json_value(mesh,'$.descriptor_name') as descriptor_name,
     json_value(mesh,'$.qualifier_ui') as qualifier_ui,
-    json_value(mesh,'$.qualifier_name') as qualifier_name
-FROM ${ref("works")}, unnest(JSON_QUERY_ARRAY(works,'$.mesh')) as mesh
+    json_value(mesh,'$.qualifier_name') as qualifier_name,
+     json_extract(works,"$.updated_date") as updated_date
+   
+FROM ${ref("works")}, unnest(JSON_QUERY_ARRAY(works,'$.mesh')) as mesh)) WHERE RANK =1 
 
 -- select *
 -- from 

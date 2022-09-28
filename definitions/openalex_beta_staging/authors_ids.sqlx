@@ -5,7 +5,8 @@ config {
   
 }
 
-
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by author_id order by updated_date desc  ) as RANK from (
 SELECT 
 substring(json_value(authors,"$.id"),22) as author_id,
 json_extract(authors,"$.ids.openalex")as openalex,
@@ -14,7 +15,8 @@ json_extract(authors,"$.ids.scopus") as scopus,
 json_extract(authors,"$.ids.twitter") as twitter,
 json_extract(authors,"$.ids.wikipedia") as wikipedia,
 json_extract(authors,"$.ids.mag") as mag,
-FROM ${ref("author")} 
+json_extract(authors,"$.updated_date") as updated_date
+FROM ${ref("author")} )) WHERE RANK =1 
 
 
 -- select *

@@ -2,9 +2,10 @@ config {
   type: "incremental",
   name:"venue"
 }
-
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by venue_id order by updated_date desc  ) as RANK from (
 SELECT 
-    json_value(venues,'$.id') as id,
+    json_value(venues,'$.id') as venue_id,
     json_value(venues,'$.issn_l') as issn_l,
     json_value(venues,'$.display_name') as display_name,
     json_value(venues,'$.publisher') as publisher,
@@ -14,7 +15,7 @@ SELECT
     json_value(venues,'$.is_doaj') as is_doaj,
     json_value(venues,'$.homepage_url') as homepage_url,
     json_value(venues,'$.works_api_url') as works_api_url,
-    json_value(venues,'$.updated_date') as updated_date,  FROM ${ref("venues")}
+    json_value(venues,'$.updated_date') as updated_date,  FROM ${ref("venues")})) WHERE RANK =1 
 
 -- select *
 -- from 

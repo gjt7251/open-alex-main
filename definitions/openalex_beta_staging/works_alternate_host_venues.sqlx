@@ -2,12 +2,14 @@ config {
   type: "incremental",
   name:"works_alternate_host"
 }
-
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by work_id order by updated_date desc  ) as RANK from (
 select 
     substring(json_value(works,'$.id'),22) as work_id, 
-    substring(json_value(works,'$.host_venue.id'),22) as venue_id
+    substring(json_value(works,'$.host_venue.id'),22) as venue_id,
+    json_extract(works,"$.updated_date") as updated_date
 
-    from ${ref("works")}
+    from ${ref("works")})) WHERE RANK =1 
 
 -- select *
 -- from 

@@ -1,12 +1,14 @@
 config {
   type: "incremental",
   name: "venues_counts_by_year"
-}
+}SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by venue_id order by updated_date desc  ) as RANK from (
 Select
 json_value(venues,'$.id') as venue_id,
 json_value(venues,'$.works_count') as works_count,
 json_value(venues,'$.cited_by_count') as cited_by_count ,
-json_value(venues,'$.counts_by_year') as year from ${ref("venues")}
+json_extract(venues,"$.updated_date") as updated_date
+json_value(venues,'$.counts_by_year') as year from ${ref("venues")})) WHERE RANK =1 
 
 -- select *
 -- from 

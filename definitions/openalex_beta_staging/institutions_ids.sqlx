@@ -2,7 +2,8 @@ config {
   type: "incremental",
   name: "institutions_ids"
 }
-
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by institution_id order by updated_date desc  ) as RANK from (
 select 
 substring(json_value(institutions,"$.id"),22)as institution_id,
 substring(json_value(institutions,"$.ids.openalex"),23)as openalex,
@@ -10,8 +11,9 @@ json_value(institutions,"$.ids.ror") as ror,
 json_value(institutions,"$.ids.grid") as grid,
 json_value(institutions,"$.ids.wikipedia") as wikipedia,
 json_value(institutions,"$.ids.wikidata") as wikidata,
-json_value(institutions,"$.ids.mag") as mag
-FROM ${ref("institutions")}
+json_value(institutions,"$.ids.mag") as mag,
+json_extract(institutions,"$.updated_date") as updated_date
+FROM ${ref("institutions")})) WHERE RANK =1 
 
 -- select *
 -- from 

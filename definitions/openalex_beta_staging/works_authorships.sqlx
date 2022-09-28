@@ -2,13 +2,16 @@ config {
   type: "incremental",
   name:" works_authorships"
 }
-
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by work_id order by updated_date desc  ) as RANK from (
 select 
     substring(json_value(works,'$.id'),22) as work_id,
     json_value(authorships,'$.author_position') as author_position,
     substring(json_value(authorships,'$.author.id'),22) as author_id,
-    substring(json_value(institutions,'$.id'),22) as institution_id
+    substring(json_value(institutions,'$.id'),22) as institution_id,
+    json_extract(works,"$.updated_date") as updated_date
 FROM ${ref("works")}, unnest(JSON_QUERY_ARRAY(works,'$.authorships')) as authorships,unnest(JSON_QUERY_ARRAY(authorships,'$.institutions')) as institutions
+ )) WHERE RANK =1 
 
 -- select *
 -- from ${ref("source_table")}

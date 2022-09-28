@@ -3,9 +3,10 @@ config {
   
   name:"institution"
 }
-
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by institution_id order by updated_date desc  ) as RANK from (
 SELECT 
-substring(json_value(institutions,"$.id"),22) as id,
+substring(json_value(institutions,"$.id"),22) as institution_id,
 substring(json_value(institutions,"$.ror"),17) as ror,
 json_value(institutions,"$.display_name")as display_name,
 json_value(institutions,"$.country_code")as country_code,
@@ -18,7 +19,7 @@ json_value(institutions,"$.works_count")as works_count,
 json_value(institutions,"$.cited_by_count")as cited_by_count,
 json_value(institutions,"$.works_api_url")as works_api_url,
 json_value(institutions,"$.updated_date")as updated_date
-FROM ${ref("institutions")}
+FROM ${ref("institutions")})) WHERE RANK =1 
 
 -- select *
 -- from 

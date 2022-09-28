@@ -2,9 +2,10 @@ config {
   type: "incremental",
   name:"work"
 }
-
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by work_id order by updated_date desc  ) as RANK from (
 select 
-    substring(json_value(works,'$.id'),22) as id, 
+    substring(json_value(works,'$.id'),22) as work_id, 
     json_value(works,'$.doi') as doi,
     json_value(works,'$.title') as title,
     json_value(works,'$.display_name') as display_name,
@@ -13,9 +14,12 @@ select
     json_value(works,'$.cited_by_count') as cited_by_count,
     json_value(works,'$.is_retracted') as is_retracted,
     json_value(works,'$.is_paratext') as is_paratext,
-    json_value(works,'$.host_venue.id') as host_venue_id
+    json_value(works,'$.host_venue.id') as host_venue_id,
+     json_extract(works,"$.updated_date") as updated_date
+   
 
     from ${ref("works")}
+ )) WHERE RANK =1 
 
 -- select *
 -- from 

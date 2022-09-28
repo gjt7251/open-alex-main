@@ -2,7 +2,8 @@ config {
   type: "incremental",
   name: "concepts_ids"
 }
-
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by concept_id order by updated_date desc  ) as RANK from (
 SELECT 
 substring(json_value(concepts,"$.id"),22) as concept_id,
 json_query(concepts,"$.ids.openalex") as openalex,
@@ -11,7 +12,8 @@ json_query(concepts,"$.ids.mag") as mag,
 json_query(concepts,"$.ids.wikipedia") as wikipedia,
 json_query(concepts,"$.ids.umls_aui")as umls_aui,
 json_query(concepts,"$.ids.umls_cui")as umls_cui,
-FROM ${ref("concepts")}
+json_extract(concepts,"$.updated_date") as updated_date
+FROM ${ref("concepts")})) WHERE RANK = 1
 
 -- select *
 -- from 

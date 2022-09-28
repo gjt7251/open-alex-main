@@ -2,11 +2,14 @@ config {
   type: "incremental",
   name:"concepts_ansestors"
 }
-
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by concept_id order by updated_date desc  ) as RANK from (
 SELECT  
 substring(json_value(concepts,"$.id"),22) as concept_id,
-substring(json_value(ancestors,"$.id"),22) as ancestor_id
+substring(json_value(ancestors,"$.id"),22) as ancestor_id,
+json_extract(concepts,"$.updated_date") as updated_date
 FROM ${ref("concepts")},unnest(json_extract_array(concepts,"$.ancestors")) as ancestors
+ )) WHERE RANK=1 
 
 -- select *
 -- from 

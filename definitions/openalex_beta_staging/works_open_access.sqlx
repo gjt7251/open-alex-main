@@ -2,14 +2,17 @@ config {
   type: "incremental",
   name:"works_open_acces"
 }
-
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by work_id order by updated_date desc  ) as RANK from (
 select 
     substring(json_value(works,'$.id'),22) as work_id, 
     json_value(works,'$.open_access.is_oa') as is_oa,
     json_value(works,'$.open_access.oa_status') as oa_status,
-    json_value(works,'$.open_access.oa_url') as oa_url
+    json_value(works,'$.open_access.oa_url') as oa_url,
+     json_extract(works,"$.updated_date") as updated_date
    
-FROM ${ref("works")}
+   
+FROM ${ref("works")})) WHERE RANK =1 
 
 -- select *
 -- from 

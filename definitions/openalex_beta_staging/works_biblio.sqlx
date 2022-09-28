@@ -2,16 +2,18 @@ config {
   type: "incremental",
   name:"works_biblio"
 }
-
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by work_id order by updated_date desc  ) as RANK from (
 select 
     substring(json_value(works,'$.id'),22) as work_id, 
     json_value(works,'$.biblio.volume') as volume,
     json_value(works,'$.biblio.issue') as issue,
     json_value(works,'$.biblio.first_page') as first_page,
-    json_value(works,'$.biblio.last_page') as last_page
+    json_value(works,'$.biblio.last_page') as last_page,
+    json_extract(works,"$.updated_date") as updated_date
    
 FROM ${ref("works")}
-
+ ))WHERE RANK =1 
 -- select *
 -- from 
 --   ${ref("table_name")} / schema.table_name

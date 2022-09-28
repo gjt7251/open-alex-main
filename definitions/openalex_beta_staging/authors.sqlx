@@ -4,8 +4,9 @@ config {
   
  
 }
-
-SELECT substring(json_value(authors,"$.id"),22) as id,
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by author_id order by updated_date desc  ) as RANK from (
+SELECT substring(json_value(authors,"$.id"),22) as author_id,
 substring(json_value(authors,"$.orcid"),19) as orcid,
 json_value(authors,"$.display_name") as display_name,
 json_query(authors,"$.display_name_alternatives") as display_name_alternatives,
@@ -14,7 +15,7 @@ json_value(authors,"$.cited_by_count") as cited_by_count,
 json_query(authors,"$.last_known_institution") as last_known_institution,
 json_value(authors,"$.works_api_url") as works_api_url,
 json_value(authors,"$.updated_date") as updated_date
-FROM ${ref("author")}
+FROM ${ref("author")})) WHERE RANK =1
 
 -- select *
 -- from 
