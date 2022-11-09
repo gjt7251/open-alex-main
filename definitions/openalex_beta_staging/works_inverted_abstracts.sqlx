@@ -1,0 +1,13 @@
+config {
+  type: "incremental",
+  name:"works_inverted_abstracts"
+}
+SELECT *EXCEPT(RANK)  from (
+ SELECT *,ROW_NUMBER() over(partition by work_id order by updated_date desc  ) as RANK from (
+select 
+    substring(json_value(works,'$.id'),22) as work_id, 
+    json_extract(works,'$.abstract_inverted_index') as inverted_index,
+     json_extract(works,"$.updated_date") as updated_date
+   
+ FROM  
+${ref("works")})) WHERE RANK =1 
