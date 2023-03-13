@@ -1,6 +1,6 @@
 config {
   type: "assertion",
-  name:"venues_assertions"
+  name:"sources_assertions"
 }
 
 
@@ -10,7 +10,7 @@ SELECT
   SELECT
     substring(json_value(venues,"$.id"),22) as id,
     COUNT(1) AS index_row_count
-  FROM ${ref("venues")}
+  FROM ${ref("sources")}
   GROUP BY id
   ) AS data
 WHERE index_row_count > 1
