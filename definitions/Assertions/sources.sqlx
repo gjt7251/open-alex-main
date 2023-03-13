@@ -8,7 +8,7 @@ SELECT
   *
  FROM (
   SELECT
-    substring(json_value(venues,"$.id"),22) as id,
+    substring(json_value(sources,"$.id"),22) as id,
     COUNT(1) AS index_row_count
   FROM ${ref("sources")}
   GROUP BY id
