@@ -1,7 +1,7 @@
 config {
   type: "declaration",
-  database:"springer-nature-analytics",
-  schema:"openalex_beta",
+  database:"ri-data-engineering-dd4c0eca",
+  schema:"openalex_snapshot",
   name:"institutions",
   description:"getting relevent data from institutions"
 }
