@@ -3,7 +3,7 @@ config {
   type: "declaration",
   database:"ri-data-engineering-dd4c0eca",
   schema:"openalex_snapshot",
-  name:"sources",
+  name:"venues",
   description:"getting relevent data from venues"
   
 }

@@ -5,12 +5,12 @@ config {
 SELECT *EXCEPT(RANK)  from (
  SELECT *,ROW_NUMBER() over(partition by venue_id order by updated_date desc  ) as RANK from (
 select
-substring(json_value(sources,'$.id'),22) as venue_id, 
-json_value(sources,'$.openalex') as openalex,
-json_value(sources,'$.issn_l') as issn_l,
-json_value(sources,'$.mag') as mag,
-json_extract(sources,"$.updated_date") as updated_date
-from ${ref("sources")})) WHERE RANK =1 
+substring(json_value(venues,'$.id'),22) as venue_id, 
+json_value(venues,'$.openalex') as openalex,
+json_value(venues,'$.issn_l') as issn_l,
+json_value(venues,'$.mag') as mag,
+json_extract(venues,"$.updated_date") as updated_date
+from ${ref("venues")})) WHERE RANK =1 
 
 
 -- select *
