@@ -6,6 +6,7 @@ SELECT *EXCEPT(RANK)  from (
  SELECT *,ROW_NUMBER() over(partition by work_id order by updated_date desc  ) as RANK from (
 select 
     substring(json_value(works,'$.id'),22) as work_id, 
+    json_value(works,'$.type') as type,
     json_value(works,'$.doi') as doi,
     json_value(works,'$.title') as title,
     json_value(works,'$.display_name') as display_name,
