@@ -3,7 +3,7 @@ config {
   name:"works_concepts"
 }
 SELECT *EXCEPT(RANK)  from (
- SELECT *,ROW_NUMBER() over(partition by work_id order by updated_date desc  ) as RANK from (
+ SELECT *,RANK() over(partition by work_id order by updated_date desc  ) as RANK from (
 select
 substring(json_value(concepts,"$.id"),22) as concept_id,
 substring(json_value(works,'$.id'),22) as work_id,
